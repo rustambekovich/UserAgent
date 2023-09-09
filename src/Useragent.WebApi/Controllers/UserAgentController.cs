@@ -22,6 +22,12 @@ public class UserAgentController : ControllerBase
         this._serviceUser = userService;
     }
 
+    [HttpGet("/getip")]
+    public IActionResult GetIp()
+    {
+        string remoteIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+        return Ok($"Mijozning IP manzili: {remoteIpAddress}");
+    }
 
     [HttpGet("get/ip")]
     public async Task<IActionResult> GetLocation()
