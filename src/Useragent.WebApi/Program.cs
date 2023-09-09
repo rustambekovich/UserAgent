@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.HttpOverrides;
 using Useragent.WebApi.Configurations.Layer;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.ConfigureServiceLayer();
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -19,6 +21,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
