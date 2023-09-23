@@ -2,5 +2,5 @@
 
 public interface IGeoInfoProvider
 {
-    public  Task<string> GetGeoInfo();
+    public  Task<string> GetGeoInfo(string ip);
 }

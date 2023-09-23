@@ -29,10 +29,10 @@ public class UserAgentController : ControllerBase
         return Ok($"Mijozning IP manzili: {remoteIpAddress}");
     }
 
-    [HttpGet("get/ip")]
-    public async Task<IActionResult> GetLocation()
+    [HttpPost("get/ip")]
+    public async Task<IActionResult> GetLocationAsync([FromForm] string ip)
     {
-        var result = await _location.GetGeoInfo();
+        var result = await _location.GetGeoInfo(ip);
         
         return Ok(result);
     }
