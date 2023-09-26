@@ -17,7 +17,7 @@ public class GeoInfoProvider : IGeoInfoProvider
         };
     }
 
-    public async Task<string> GetGeoInfo(string ip)
+    public async Task<IpInfoViewModel> GetGeoInfo(string ip)
     {
         var ipAddress = ip;
         var response = await _httpClient.GetAsync($"http://api.ipstack.com/" 
@@ -28,15 +28,15 @@ public class GeoInfoProvider : IGeoInfoProvider
             var model = new GeoInfoViewModel();
             IpInfoViewModel ipInfo = JsonConvert.DeserializeObject<IpInfoViewModel>(json)!;
             model = JsonConvert.DeserializeObject<GeoInfoViewModel>(json);
-            prin(ipInfo);
-            return json;
+            prin(ipInfo);   
+            return ipInfo;
         }
         return null;
     }
 
     public  void prin(IpInfoViewModel ipInfo)
     {
-        Console.WriteLine("IP: " + ipInfo.Ip);
+        /*Console.WriteLine("IP: " + ipInfo.Ip);
         Console.WriteLine("Type: " + ipInfo.Type);
         Console.WriteLine("Continent: " + ipInfo.ContinentName);
         Console.WriteLine("Country: " + ipInfo.CountryName);
@@ -53,7 +53,7 @@ public class GeoInfoProvider : IGeoInfoProvider
         }
         Console.WriteLine("Country Flag: " + ipInfo.Location.CountryFlag);
         Console.WriteLine("Calling Code: " + ipInfo.Location.CallingCode);
-        Console.WriteLine("EU Member: " + (ipInfo.Location.IsEU ? "Yes" : "No"));
+        Console.WriteLine("EU Member: " + (ipInfo.Location.IsEU ? "Yes" : "No"));*/
 
     }
 }

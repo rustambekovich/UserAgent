@@ -10,10 +10,10 @@ public class UserAgentController : ControllerBase
 {
     private readonly IGeoInfoProvider _location;
     private readonly ILogger<UserAgentController> _logger;
-    private readonly IUserAgent _serviceUser;
+    private readonly IUserAgentService _serviceUser;
     public string ClientIPAddr { get; private set; }
 
-    public UserAgentController(IUserAgent userService,
+    public UserAgentController(IUserAgentService userService,
         ILogger<UserAgentController> logger,
         IGeoInfoProvider geoInfoProvider)
     {
@@ -22,14 +22,14 @@ public class UserAgentController : ControllerBase
         this._serviceUser = userService;
     }
 
-    [HttpGet("/getip")]
+   /* [HttpGet("get/ip")]
     public IActionResult GetIp()
     {
         string remoteIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         return Ok($"Mijozning IP manzili: {remoteIpAddress}");
-    }
+    }*/
 
-    [HttpPost("get/ip")]
+    [HttpPost("get/location")]
     public async Task<IActionResult> GetLocationAsync([FromForm] string ip)
     {
         var result = await _location.GetGeoInfo(ip);
@@ -37,11 +37,11 @@ public class UserAgentController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet]
-    public async Task<IActionResult> CreateAsync()
+    [HttpPost]
+    public async Task<IActionResult> CreateAsync([FromForm] string ip)
     {
         string userAgent = Request.Headers["User-Agent"]!;
-        string ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+        string ipAddress = ip;//HttpContext.Connection.RemoteIpAddress.ToString()!;
         return Ok(await _serviceUser.CreateAsync(userAgent, ipAddress));
     }
     /*public IActionResult GetUserAgentInfo()

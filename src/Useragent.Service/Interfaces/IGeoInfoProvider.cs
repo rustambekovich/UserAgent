@@ -1,6 +1,8 @@
-﻿namespace Useragent.Service.Interfaces;
+﻿using Useragent.DataAccess.ViewModels.GeoLocations;
+
+namespace Useragent.Service.Interfaces;
 
 public interface IGeoInfoProvider
 {
-    public  Task<string> GetGeoInfo(string ip);
+    public  Task<IpInfoViewModel> GetGeoInfo(string ip);
 }

@@ -4,7 +4,7 @@ public class UserAgent
 {
     public long Id { get; set; }
     public string OperationSystem { get; set; } = string.Empty;
-    public string OperationSystemType { get; set; } = string.Empty;
+    //public string OperationSystemType { get; set; } = string.Empty;
     public string VersionOs { get; set; } = string.Empty;
     public string Device { get; set; } = string.Empty;
     public string DeviceCompany { get; set; } = string.Empty;
