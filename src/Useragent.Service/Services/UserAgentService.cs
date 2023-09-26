@@ -1,4 +1,5 @@
 ﻿using DeviceDetectorNET;
+using System.Net;
 using Useragent.DataAccess.IRepositories;
 using Useragent.Service.Interfaces;
 using Useragent.Service.Interfacesk;
@@ -49,6 +50,12 @@ public class UserAgentService : IUserAgentService
         string deviceBrand = dd.GetBrandName();
         userAgent_personals.DeviceName = deviceName;
         userAgent_personals.DeviceCompany = deviceBrand;
+
+        string hostname = Dns.GetHostName();
+        if(userAgent_personals.Device.ToString() == "Other")
+        {
+            userAgent_personals.Device = hostname;
+        }
 
         var result = await _service.CrestUserAgentAsync(userAgent_personals);
         if (result > 0)

@@ -17,7 +17,7 @@ public class BaseRepository
 
 
 
-        string connection = "Host = localhost; Database = Useragent-db; Port = 5432; User Id = postgres; Password = 1234";
-        this._connection = new NpgsqlConnection(connection);
+       
+        this._connection = new NpgsqlConnection();
     }
 }
